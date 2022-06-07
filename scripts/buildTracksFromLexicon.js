@@ -34,12 +34,12 @@ try {
 	(async () => {
 		let alltracks = [];
 		await buildTracksFromLexicon({ tracks: [], offset: 0 });
-		fs.readdir("./src/asset/data", (err, files) => {
+		fs.readdir("./.data", (err, files) => {
 			files.forEach((file) => {
-				const f = require("../src/asset/data/" + file);
+				const f = require("../.data/" + file);
 				alltracks = [...alltracks, ...f.tracks];
 			});
-			fs.writeFileSync("./src/asset/alltracks.json", JSON.stringify({ tracks: alltracks }));
+			fs.writeFileSync("./.data/alltracks.json", JSON.stringify({ tracks: alltracks }));
 		});
 	})();
 } catch (err) {

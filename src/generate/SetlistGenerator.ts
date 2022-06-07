@@ -1,6 +1,4 @@
 import camelot from "../asset/keymap.json";
-import lexicon from "../asset/data/alltracks.json";
-
 import SetList from "./SetList";
 import Track from "./Track";
 import timeFormat from "../common/timeFormat";
@@ -46,8 +44,10 @@ function getKeysFromEntropy(entropyLevel, camelotFifth) {
 			// @ts-ignore
 			return camelot[keyMap.get(startingKey)].main;
 		case 2:
-			return [...camelotFifth.main, ...camelotFifth.semitone];
+			return [...camelotFifth.main];
 		case 3:
+			return [...camelotFifth.main, ...camelotFifth.semitone];
+		case 4:
 			return [...camelotFifth.main, ...camelotFifth.semitone, ...camelotFifth.doublesemitone];
 	}
 }
@@ -62,7 +62,7 @@ const filterLexiconTracks = (lexiconTracks: LexiconTrack[]): LexiconTrack[] => {
 			return t;
 		})
 		.filter((t) => {
-			if (enableSingleKey) {
+			if (enableSingleKey || 0 === setentropy) {
 				return startingKey === t.key;
 			}
 			return t;
@@ -81,7 +81,7 @@ const filterLexiconTracks = (lexiconTracks: LexiconTrack[]): LexiconTrack[] => {
 		});
 };
 
-function entropyMain(filtered: LexiconTrack[]) {
+function entropyMain(filtered: LexiconTrack[]): LexiconTrack[] {
 	const cwValue = keyMap.get(startingKey);
 	// @ts-ignore
 	const cw = camelot[cwValue];
@@ -98,7 +98,6 @@ function entropyMain(filtered: LexiconTrack[]) {
 		titles: [],
 		entropyLevel: setentropy
 	};
-
 	return buildTrackList(options);
 }
 
@@ -137,19 +136,20 @@ const buildTrackList = (buildOptions: BuildOptions): LexiconTrack[] => {
 		titles = []
 	} = buildOptions;
 
+	// Make sure we always start with the starting key
 	const same = init ? currKey : sameKey();
 	let newFifth = same ? keyMap.get(currKey) : simplyRandom(keys.filter((k) => currKey !== k));
 	// @ts-ignore
 	const camelotFifth = camelot[newFifth];
-	const newKey = camelotFifth.key;
+	const nextKey = camelotFifth.key;
 	const temp: LexiconTrack[] = filtered
 		.filter((t) => {
-			return newKey === t.key;
+			return nextKey === t.key;
 		})
 		.filter((t) => !ids.includes(t.id))
 		.filter((t) => !titles.includes(t.title))
 		.filter((t) => {
-			if (prevTrack.hasOwnProperty("bpm")) {
+			if (prevTrack && prevTrack.hasOwnProperty("bpm")) {
 				const p = prevTrack.bpm + bpmEntropy;
 				const m = prevTrack.bpm - bpmEntropy;
 				return p >= t.bpm && m <= t.bpm;
@@ -179,9 +179,9 @@ const buildTrackList = (buildOptions: BuildOptions): LexiconTrack[] => {
 	return trackList;
 };
 
-const setlistGenerator = (): SetList => {
-	const tracks: LexiconTrack[] = lexicon.tracks;
-	let filtered: LexiconTrack[] = filterLexiconTracks(tracks);
+// @ts-ignore
+const setlistGenerator = (lexiconTracks: LexiconTrack[]): SetList => {
+	let filtered: LexiconTrack[] = filterLexiconTracks(lexiconTracks);
 
 	const lexiconTrackList = createTrackList(filtered);
 
@@ -203,6 +203,7 @@ const setlistGenerator = (): SetList => {
 	});
 
 	return {
+		setEntropy: setentropy,
 		totalDuration: timeFormat(trackListDuration),
 		trackList
 	};

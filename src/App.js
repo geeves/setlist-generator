@@ -1,14 +1,11 @@
-import './App.css';
+import "./App.css";
 
 function App() {
-  return (
-    <div>
-      <div>
-        Setlist Generator
-      </div>
-
-    </div>
-  );
+	return (
+		<div>
+			<div>Setlist Generator</div>
+		</div>
+	);
 }
 
 export default App;

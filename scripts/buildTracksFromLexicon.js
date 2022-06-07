@@ -24,7 +24,7 @@ function buildTracksFromLexicon({ tracks = [], offset = 0 }) {
 		total = lexicon.data.total;
 		const tracks = lexicon.data.tracks;
 		if (total > alltracks.length) {
-			fs.writeFileSync(`./.data/tracks${offset}.json`, JSON.stringify({ tracks }));
+			fs.writeFileSync(`./src/asset/data/tracks${offset}.json`, JSON.stringify({ tracks }));
 			buildTracksFromLexicon({ tracks, offset: nextOffset });
 		}
 	})();
@@ -34,12 +34,12 @@ try {
 	(async () => {
 		let alltracks = [];
 		await buildTracksFromLexicon({ tracks: [], offset: 0 });
-		fs.readdir("./.data", (err, files) => {
+		fs.readdir("./src/asset/data", (err, files) => {
 			files.forEach((file) => {
-				const f = require("../.data/" + file);
+				const f = require("../src/asset/data/" + file);
 				alltracks = [...alltracks, ...f.tracks];
 			});
-			fs.writeFileSync("./.data/alltracks.json", JSON.stringify({ tracks: alltracks }));
+			fs.writeFileSync("./src/asset/alltracks.json", JSON.stringify({ tracks: alltracks }));
 		});
 	})();
 } catch (err) {

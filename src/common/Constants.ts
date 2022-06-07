@@ -1,0 +1,13 @@
+export const minors: string[] = ["Am", "Dm", "Gm", "Em", "Cm", "Bm", "Em", "Fm", "Abm", "Dbm", "Ebm", "F#m"];
+export const majors: string[] = ["A", "D", "G", "E", "C", "B", "E", "F", "Ab", "Db", "Eb", "F#"];
+export const allkeys: string[] = [...minors, ...majors];
+export const maxBpm: number = 129;
+export const minBpm: number = 120;
+export const totalDuration: number = 60 * 180; // 2 hours in seconds
+export const maxTrackTime: number = 60 * 8 + 15; // No tracks over 8 minutes 15 seconds
+export const setentropy: number = 1;
+export const bpmEntropy: number = 3; // plus / minus bpm if min/max isn't set
+export const enableMaxTrackTime: boolean = false;
+export const enableSingleKey: boolean = false;
+export const selectedKeys: string[] = []; //["Em", "Am", "Dm"];
+export const genres: string[] = []; // ["house", "deep house", "minimal"];

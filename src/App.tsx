@@ -1,15 +1,14 @@
 import "./App.css";
-import SetlistGenerator from "./generate/SetlistGenerator";
-import SetList from "./generate/SetList";
-import Track from "./generate/Track";
-import tracks from "./asset/data/alltracks.json";
-import SetlistTable from "./SetlistTable";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { generate } from "./reducers/SetlistReducer";
+import SetlistTable from "./components/SetlistTable";
+import SetList from "./generate/SetList";
+import Track from "./generate/Track";
 
 const style = {
 	position: "absolute" as "absolute",
@@ -48,14 +47,16 @@ function entropyDesc(entropy: number) {
 	}
 }
 
-function App() {
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+// const [open, setOpen] = React.useState(false);
+// const handleOpen = () => setOpen(true);
+// const handleClose = () => setOpen(false);
 
+function App() {
+	const dispatch = useDispatch();
 	// @ts-ignore
-	let setList: SetList = SetlistGenerator(tracks.tracks);
-	const trackList: Track[] = setList.trackList;
+	let setList: SetList = useSelector((state) => state.setlist.setList);
+	// @ts-ignore
+	let trackList: Track[] = setList.trackList;
 	return (
 		<React.Fragment>
 			<CssBaseline />
@@ -70,19 +71,20 @@ function App() {
 							Number of Tracks: {trackList.length} | Unmixed Time: {setList.totalDuration} | Tracklist Entropy:{" "}
 							{setList.setEntropy}
 						</span>
+						<button style={{ marginLeft: "20px" }} onClick={() => dispatch(generate())}>
+							generate
+						</button>
 					</Typography>
 				</section>
-				<Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>
-					{SetlistTable(setList)}
-					<footer>
-						<Typography align="center">
-							<span style={{ fontSize: "x-small" }}>
-								please report bugs here:
-								<a href="https://github.com/geeves/setlist-generator">https://github.com/geeves/setlist-generator</a>
-							</span>
-						</Typography>
-					</footer>
-				</Box>
+				<Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }}>{SetlistTable()}</Box>
+				<footer>
+					<Typography align="center">
+						<span style={{ fontSize: "x-small" }}>
+							please report bugs here:
+							<a href="https://github.com/geeves/setlist-generator">https://github.com/geeves/setlist-generator</a>
+						</span>
+					</Typography>
+				</footer>
 			</Container>
 			{/*<Modal*/}
 			{/*	open={open}*/}

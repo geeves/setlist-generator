@@ -8,4 +8,5 @@
 
 ### Getting Started
 
-- Run `install.sh` to build a local JSON file `./.data/alltracks.json` from your Lexicon library
+- Run `install.sh` to build a local JSON file `./src/asset/data/alltracks.json` from your Lexicon library
+- This `data` directory is ignored

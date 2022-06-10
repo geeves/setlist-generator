@@ -1,6 +1,6 @@
 {
-	"short_name": "React App",
-	"name": "Create React App Sample",
+	"short_name": "SoulGlo Setlist Generator",
+	"name": "Create a Setlist from your tracks in Lexicon",
 	"icons": [
 		{
 			"src": "favicon.ico",

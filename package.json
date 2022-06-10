@@ -8,7 +8,7 @@
 	"author": {
 		"name": "geeves"
 	},
-	"description": "setlist generator",
+	"description": "setlist generator for fun because I can, not because I should.",
 	"dependencies": {
 		"@commitlint/cli": "^17.0.2",
 		"@commitlint/config-conventional": "^17.0.2",

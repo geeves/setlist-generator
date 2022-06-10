@@ -10,7 +10,7 @@ AKA the [Camelot Wheel](https://www.soulglo.com/camelot-wheel/).
 ### Prerequisites
 
 - Lexicon https://www.lexicondj.com/index
-- Lexicon must be running, and you must turn on API mode to be able to connect.
+- Lexicon must be running, and you must turn on API mode to be able to connect and install your tracks.
 - You can enable the API in the Lexicon settings under Integrations.
 
 ### Getting Started

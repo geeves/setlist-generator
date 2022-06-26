@@ -10,7 +10,8 @@ repos:
     rev: "v2.3.1"
     hooks:
       - id: prettier
-#  - repo: https://github.com/pre-commit/mirrors-eslint
-#    rev: '7.28.0'  # Use the sha / tag you want to point at
-#    hooks:
-#      - id: eslint
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: master
+    hooks:
+      - id: commitizen

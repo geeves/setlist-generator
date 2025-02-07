@@ -1,8 +1,8 @@
 [*]
 charset = utf-8
 end_of_line = lf
-indent_size = 2
-indent_style = tab
+indent_size = 4
+indent_style = space
 insert_final_newline = true
 max_line_length = 120
 tab_width = 2
@@ -13,3 +13,8 @@ ij_formatter_tags_enabled = false
 ij_smart_tabs = false
 ij_visual_guides = none
 ij_wrap_on_typing = false
+
+# Matches multiple files with brace expansion notation
+[{*.{js,json,ts,yaml,yml},.babelrc,.eslintrc}]
+indent_size = 2
+indent_style = tab
